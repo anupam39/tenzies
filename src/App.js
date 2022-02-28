@@ -1,10 +1,40 @@
 // import logo from './logo.svg';
 import './App.css';
 import React,{useState} from "react"
+import Die from "./Components/Die"
+import { nanoid } from 'nanoid';
 
 export default function App() {
+  
+  const[dice, setDice] = useState(allNewDice())
+
+  function generateNewDie() {
+    return {
+      value: Math.ceil(Math.random() * 6),
+      isHeld: false,
+      id: nanoid()
+    }
+  }
+
+  function allNewDice() {
+    const newArray = []
+    for(let i=0; i<10; i++){
+      newArray.push(generateNewDie())
+    }
+    return newArray
+  }
+
+  const dieElements = dice.map(item => (
+    <Die value={item.value} 
+    isHeld={item.isHeld} 
+    key={item.id} />
+  ))
   return(
     <main className="main-container">
+      <div className="dice-container">
+        {dieElements}
+      </div>
+      <button className="roll-dice">Roll</button>
     </main>
   )
 }
