@@ -17,7 +17,7 @@ export default function App() {
     if(allHeld && allSameValue){
        setTenzies(true)
     }
-  }, dice)
+  }, [dice])
 
   function generateNewDie() {
     return {
