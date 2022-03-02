@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import React,{useState, useEffect} from "react"
 import Die from "./Components/Die"
@@ -9,6 +8,7 @@ export default function App() {
   
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     const allHeld = dice.every(die => die.isHeld)
@@ -37,6 +37,7 @@ export default function App() {
 
   function rollDice() {
     if(!tenzies){
+      setCount(count => count+1)
       setDice(oldDice => oldDice.map(die => {
       return die.isHeld ? die : generateNewDie()
     }))
@@ -68,6 +69,7 @@ export default function App() {
       <div className="dice-container">
         {dieElements}
       </div>
+      {tenzies && <p>You won the game in {count} rolls</p>}
       <button className="roll-dice"
       onClick={rollDice}>{tenzies ? "New Game" : "Roll"}</button>
     </main>
